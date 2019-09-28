@@ -1,36 +1,38 @@
 package com.example.facemaker;
-
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.SurfaceView;
 import java.util.Random;
 
-public class Face extends SurfaceView {
-    private static final String TAG = "MyActivity";
 
+/**
+ * @author Taylor Fukumoto
+ * @date 28 September 2019
+ * Face class is the "view" class
+ * this is where the face is drawn and colors are set
+ */
+public class Face extends SurfaceView {
     private FaceModel myFaceModel = new FaceModel();
 
+    /** skinColor, eyeColor, hairColor, and hairStyle variables are in FaceModel class */
 
-    //protected int skinColor;
-   // protected int eyeColor;
-   // protected int hairColor;
-  //  protected int hairStyle;
-
-    //protected Paint skin = new Paint();
     protected Paint whiteEye = new Paint();
     protected Paint pupilColor = new Paint();
-   // protected Paint irisColor = new Paint();
-    //protected Paint hairPaint = new Paint();
-
     protected Random random = new Random();
 
-    public Face(Context context, AttributeSet attrs){
 
+    /**
+     * Face constructor
+     *
+     * @param context and attrs are required parameters for a surface view
+     *
+     * initializes whiteEye and pupilColor to white and black
+     * calls randomize method to initially draw a random face when app opens
+     */
+    public Face(Context context, AttributeSet attrs){
         super(context,attrs);
         setWillNotDraw(false);
 
@@ -42,18 +44,26 @@ public class Face extends SurfaceView {
         this.randomize();
     }
 
+    /**
+     * getFaceModel method returns myFaceModel object instantiated at the top of this class
+     *
+     * allows other classes to have access to this same myFaceModel object
+     *
+     * @return FaceModel object
+     */
     public FaceModel getFaceModel()
     {
         return myFaceModel;
     }
 
 
-    //initializes all the variables to randomly selected valid values. This method should be called by the constructor
+    /**
+     * randomly assigns skinColor, irisColor, and hairColor a random rgb color between 0 and 255
+     *
+     * generates a random number between 1 and 3 to randomly assign one of 3 hairstyles
+     *
+     */
     public void randomize(){
-        myFaceModel.hair = false;
-        myFaceModel.skin = false;
-        myFaceModel.eyes = false;
-
         //chooses random skin, iris, and hair color
         myFaceModel.skinColor.setARGB(random.nextInt(255), random.nextInt(255), random.nextInt(255), random.nextInt(255));
         myFaceModel.irisColor.setARGB(random.nextInt(255), random.nextInt(255), random.nextInt(255), random.nextInt(255));
@@ -74,18 +84,23 @@ public class Face extends SurfaceView {
         }
     }
 
-    //draws this Face object upon a given Canvas
+    /**
+     * given a canvas, draws the Face object
+     *
+     * onDraw draws bare face oval and then calls helper method drawFace to draw
+     * eyes, nose, mouth
+     *
+     * if skin button is pressed and randomize button has not been pressed
+     * and if any of the RGB seekbars have been moved, set skin color to the chosen
+     * RGB values from seekbars
+     *
+     */
     @Override
     public void onDraw(Canvas canvas){
-        //should try to change face to depend on screen size- test this
-       /* int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-        int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-        Log.e("Width", "" + screenWidth);
-        Log.e("height", "" + screenHeight);*/
-
         //changes skin color if skin button is checked and color bar has been changed
-        if(myFaceModel.skin == true) {
+        if(myFaceModel.skin == true && myFaceModel.random == false) {
             //if skin button is checked and color has been changed, change skin color to chosen color
+            //if random face button is pressed, don't set seekbar color
             //if skin button is checked but color wasn't changed yet, keep original random skin color
             if(myFaceModel.Red != 0 || myFaceModel.Green != 0 || myFaceModel.Blue != 0) {
                 myFaceModel.skinColor.setColor(Color.rgb(myFaceModel.Red, myFaceModel.Green, myFaceModel.Blue));
@@ -101,9 +116,23 @@ public class Face extends SurfaceView {
         this.drawFace(canvas);
     }
 
+
+    /**
+     * drawFace method is a helper method to onDraw
+     *
+     * onDraw passes canvas to drawFace
+     *
+     * drawFace draws face's eyes, nose, and mouth
+     *
+     * sets the face's iris color the same way it sets the skin color in
+     * onDraw method
+     *
+     * calls another helper method, drawHair
+     *
+     */
     public void drawFace(Canvas canvas){
         //changes iris color if eyes button is checked and color bar has been changed
-        if(myFaceModel.eyes == true) {
+        if(myFaceModel.eyes == true && myFaceModel.random == false) {
             if(myFaceModel.Red != 0 || myFaceModel.Green != 0 || myFaceModel.Blue != 0) {
                 myFaceModel.irisColor.setColor(Color.rgb(myFaceModel.Red, myFaceModel.Green, myFaceModel.Blue));
             }
@@ -159,11 +188,29 @@ public class Face extends SurfaceView {
         this.drawHair(canvas);
     }
 
-    public void drawHair(Canvas canvas) {
 
-//to set rbg color: https://stackoverflow.com/questions/17761852/how-to-set-rgb-color-in-android
-        //changes hair color if hair button is checked and color bar has been changed
-        if(myFaceModel.hair == true) {
+    /**
+     * drawHair method is a helper method
+     *
+     * drawFace passes canvas to drawHair
+     *
+     * drawHair draws one of three hair styles
+     *
+     * sets hair color the same way skin and eye color are chosen above
+     *
+     */
+    public void drawHair(Canvas canvas) {
+        /**
+         External Citation
+         Date: 27 September 2019
+         Problem: Didn't know how to set a color to specific rgb values
+         Resource:
+         https://stackoverflow.com/questions/17761852/how-to-set-rgb-color-in-android
+         Solution: I used the example code from this post.
+         */
+
+        //changes hair color if hair button is checked and color bar has been changed and random face not pressed
+        if(myFaceModel.hair == true && myFaceModel.random == false) {
             if(myFaceModel.Red != 0 || myFaceModel.Green != 0 || myFaceModel.Blue != 0) {
                 myFaceModel.hairColor.setColor(Color.rgb(myFaceModel.Red, myFaceModel.Green, myFaceModel.Blue));
             }

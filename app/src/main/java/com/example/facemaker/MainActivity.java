@@ -8,11 +8,19 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
+/**
+ * @author Taylor Fukumoto
+ * @date 28 September 2019
+ * MainActivity sets all components to the FaceController class
+ */
 public class MainActivity extends AppCompatActivity {
+    //these seekbars and spinner are used in faceController
     SeekBar redBar;
     SeekBar greenBar;
     SeekBar blueBar;
+    Spinner spinner;
 
+    //uses instance to reference MainActivity from FaceController class
     private static MainActivity instance;
 
     @Override
@@ -26,16 +34,16 @@ public class MainActivity extends AppCompatActivity {
         FaceController myFaceListener = new FaceController(theSV);
 
         //sets FaceController to be the spinner, seekbars, and radio buttons listener
-        Spinner spinner = (Spinner)findViewById(R.id.spinner);
+        spinner = (Spinner)findViewById(R.id.hairType);
         spinner.setOnItemSelectedListener(myFaceListener);
 
-        redBar = (SeekBar) findViewById(R.id.seekBar);
+        redBar = (SeekBar) findViewById(R.id.redSeek);
         redBar.setOnSeekBarChangeListener(myFaceListener);
 
-        greenBar = (SeekBar) findViewById(R.id.seekBar2);
+        greenBar = (SeekBar) findViewById(R.id.greenSeek);
         greenBar.setOnSeekBarChangeListener(myFaceListener);
 
-        blueBar = (SeekBar) findViewById(R.id.seekBar3);
+        blueBar = (SeekBar) findViewById(R.id.blueSeek);
         blueBar.setOnSeekBarChangeListener(myFaceListener);
 
         RadioButton hairButton = (RadioButton) findViewById(R.id.hairButton);
@@ -51,10 +59,12 @@ public class MainActivity extends AppCompatActivity {
         Button randomButton = (Button) findViewById(R.id.randomButton);
         randomButton.setOnClickListener(myFaceListener);
 
+        //instance of MainActivity
         instance = this;
 
     }
 
+    //to get reference to MainActivity from other classes
     public static MainActivity getInstance() {
         return instance;
     }

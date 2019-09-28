@@ -81,21 +81,21 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/redText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Red" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/greenText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Green" />
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/blueText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -110,21 +110,21 @@
                     android:orientation="horizontal">
 
                     <SeekBar
-                        android:id="@+id/seekBar"
+                        android:id="@+id/redSeek"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:max="255"/>
 
                     <SeekBar
-                        android:id="@+id/seekBar2"
+                        android:id="@+id/greenSeek"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:max="255"/>
 
                     <SeekBar
-                        android:id="@+id/seekBar3"
+                        android:id="@+id/blueSeek"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -140,7 +140,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/hairTypeText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -154,7 +154,7 @@
                     android:orientation="horizontal">
 
                     <Spinner
-                        android:id="@+id/spinner"
+                        android:id="@+id/hairType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:entries="@array/hair_arrays"
@@ -169,7 +169,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/randomText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Generate random face" />
